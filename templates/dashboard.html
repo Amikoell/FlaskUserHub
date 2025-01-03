@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
+    <a href="{{ url_for('main.logout') }}" class="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+        Logout
+    </a>
+</div>
+
+<a href="{{ url_for('main.add_user') }}" class="bg-gray-800 text-white px-4 py-2 rounded-md mb-6 inline-block hover:bg-gray-700">
+    Tambah User
+</a>
+
+<table class="table-auto w-full border-collapse border border-gray-300">
+    <thead class="bg-gray-100">
+        <tr>
+            <th class="border border-gray-300 px-4 py-2 text-left text-gray-800 text-sm">ID</th>
+            <th class="border border-gray-300 px-4 py-2 text-left text-gray-800 text-sm">Username</th>
+            <th class="border border-gray-300 px-4 py-2 text-left text-gray-800 text-sm">Role</th>
+            <th class="border border-gray-300 px-4 py-2 text-left text-gray-800 text-sm">Email</th>
+            <th class="border border-gray-300 px-4 py-2 text-left text-gray-800 text-sm">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users.items %}
+        <tr class="hover:bg-gray-50">
+            <td class="border border-gray-300 px-4 py-2 text-gray-700 text-sm">{{ user.id }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-gray-700 text-sm">{{ user.username }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-gray-700 text-sm">{{ user.role }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-gray-700 text-sm">{{ user.email }}</td>
+            <td class="border border-gray-300 px-4 py-2 flex gap-2">
+
+                <a href="{{ url_for('main.edit_user', id=user.id) }}" class="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z" />
+                    </svg>
+                </a>
+
+                <a href="{{ url_for('main.delete_user', id=user.id) }}" class="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700" onclick="return confirm('Hapus user ini?')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 4h4M4 7h16M5 7v10a2 2 0 002 2h10a2 2 0 002-2V7" />
+                    </svg>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="mt-6 flex justify-between">
+    {% if users.has_prev %}
+    <a href="{{ url_for('main.dashboard', page=users.prev_num) }}" class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700">
+        Previous
+    </a>
+    {% endif %}
+    {% if users.has_next %}
+    <a href="{{ url_for('main.dashboard', page=users.next_num) }}" class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700">
+        Next
+    </a>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="text-center">
+        <h1 class="text-6xl font-bold text-gray-800 mb-4">Zidan Amikul Afham</h1>
+        <p class="text-lg text-gray-600 mb-8">5230411330</p>
+        <p class="text-sm text-gray-500">Tugas akhir semester 3</p>
+        <p class="text-sm text-gray-500">Pemrograman web praktik | Informatika</p>
+
+        <div class="mt-8">
+            <a href="{{ url_for('main.logout') }}" class="bg-gray-800 text-white px-6 py-3 rounded-md text-sm font-semibold hover:bg-gray-700">
+                Logout
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
